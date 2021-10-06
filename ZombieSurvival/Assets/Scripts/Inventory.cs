@@ -82,4 +82,15 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
+    public void RemoveItem(int slotNumber)
+    {
+        slot[slotNumber].GetComponent<Slot>().item = null;
+        slot[slotNumber].GetComponent<Slot>().icon = null;
+        slot[slotNumber].GetComponent<Slot>().type = null;
+        slot[slotNumber].GetComponent<Slot>().ID = 0;
+        slot[slotNumber].GetComponent<Slot>().description = null;
+        slot[slotNumber].GetComponent<Slot>().UpdateSlot();
+        slot[slotNumber].GetComponent<Slot>().empty = true;
+    }
 }

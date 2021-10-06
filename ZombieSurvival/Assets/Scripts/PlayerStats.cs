@@ -9,6 +9,12 @@ public class PlayerStats : MonoBehaviour
     public float hunger;
     public float thirst;
 
+    public float hungerGainer;
+    public float thirstGainer;
+
+    private float hungerTimer;
+    private float thirstTimer;
+
     private WaitForSeconds regenTick = new WaitForSeconds(0.2f);
     private Coroutine regen;
 
@@ -21,7 +27,6 @@ public class PlayerStats : MonoBehaviour
     }
 
     //healthbar
-
     public void UpdateHealth()
     {
         if (health > 100f)
@@ -35,7 +40,6 @@ public class PlayerStats : MonoBehaviour
     }
 
     //stamina bar
-
     public void UpdateStamina()
     {
         if (stamina > 100f)
@@ -91,7 +95,6 @@ public class PlayerStats : MonoBehaviour
 
 
     ///hunger bar
-
     public void UpdateHunger()
     {
         if (hunger > 100f)
@@ -102,11 +105,18 @@ public class PlayerStats : MonoBehaviour
         {
             hunger = 0f;
         }
+        
+        hungerTimer += Time.deltaTime;
+        
+        if(hungerTimer >= hungerGainer)
+        {
+            hunger -= 5f;
+            hungerTimer = 0f;
+        }
     }
 
 
     //thirst bar
-
     public void UpdateThirst()
     {
         if (thirst > 100f)
@@ -116,6 +126,14 @@ public class PlayerStats : MonoBehaviour
         else if (thirst < 0f)
         {
             thirst = 0f;
+        }
+
+        thirstTimer += Time.deltaTime;
+
+        if (thirstTimer >= thirstGainer)
+        {
+            thirst -= 5f;
+            thirstTimer = 0f;
         }
     }
 }

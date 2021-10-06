@@ -6,7 +6,10 @@ using UnityEngine.EventSystems;
 
 public class Slot : MonoBehaviour, IPointerClickHandler
 {
+    public GameObject inventory;
+    public Sprite backgroundIcon;
     public GameObject item;
+    public int slotNumber;
     public int ID;
     public string type;
     public string description;
@@ -16,7 +19,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        UseItem();
+        if(item != null)
+        {
+            UseItem();
+        }
     }
 
     private void Start()
@@ -26,11 +32,24 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
     public void UpdateSlot()
     {
-        slotIconGO.GetComponent<Image>().sprite = icon;
+        if(icon != null)
+        {
+            slotIconGO.GetComponent<Image>().sprite = icon;
+        }
+        else
+        {
+            slotIconGO.GetComponent<Image>().sprite = backgroundIcon;
+        }
     }
 
     public void UseItem()
     {
         item.GetComponent<Item>().ItemUsage();
+
+        if(type == "Healh" || type == "Food" || type == "Drink")
+        {
+            Destroy(item);
+            inventory.GetComponent<Inventory>().RemoveItem(slotNumber);
+        }
     }
 }

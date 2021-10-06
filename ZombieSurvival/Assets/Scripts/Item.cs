@@ -54,14 +54,14 @@ public class Item : MonoBehaviour
 
     public void ItemUsage()
     {
-        //weapon
         if(type == "Weapon")
         {
             weapon.SetActive(true);
             weapon.GetComponent<Item>().equipped = true;
         }
-        //health
-
-        //food
+        else if(type == "Healh" || type == "Food" || type == "Drink")
+        {
+            gameObject.GetComponent<FoodDrinkHealthItem>().UseItem();
+        }
     }
 }
