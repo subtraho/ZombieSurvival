@@ -35,10 +35,12 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         if(icon != null)
         {
             slotIconGO.GetComponent<Image>().sprite = icon;
+            slotIconGO.GetComponent<Image>().color = new Color32(255, 255, 255, 255);
         }
         else
         {
             slotIconGO.GetComponent<Image>().sprite = backgroundIcon;
+            slotIconGO.GetComponent<Image>().color = new Color32(255, 255, 255, 100);
         }
     }
 
