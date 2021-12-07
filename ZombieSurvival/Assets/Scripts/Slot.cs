@@ -48,7 +48,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
     {
         item.GetComponent<Item>().ItemUsage();
 
-        if(type == "Healh" || type == "Food" || type == "Drink")
+        if(type == "Health" || type == "Food" || type == "Drink")
         {
             Destroy(item);
             inventory.GetComponent<Inventory>().RemoveItem(slotNumber);

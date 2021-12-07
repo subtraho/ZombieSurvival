@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
             moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical"));
             moveDirection = Camera.main.transform.TransformDirection(moveDirection);
             moveDirection.y = 0.0f;
-            moveDirection *= speed;          
+            moveDirection *= speed;
 
             if (Input.GetButton("Jump"))
             {

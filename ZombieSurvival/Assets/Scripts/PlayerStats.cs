@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -14,6 +15,12 @@ public class PlayerStats : MonoBehaviour
 
     private float hungerTimer;
     private float thirstTimer;
+
+    private float hungerHealthImpactTimer;
+    private float thirstHealthImpactTimer;
+
+    private float hungerHealthImpactTime = 20f;
+    private float thristHealthImpactTime = 10f;
 
     private WaitForSeconds regenTick = new WaitForSeconds(0.2f);
     private Coroutine regen;
@@ -33,9 +40,11 @@ public class PlayerStats : MonoBehaviour
         {
             health = 100f;
         }
-        else if (health < 0f)
+        else if (health <= 0f)
         {
             health = 0f;
+            Cursor.lockState = CursorLockMode.Confined;
+            SceneManager.LoadScene(2);
         }
     }
 
@@ -51,7 +60,7 @@ public class PlayerStats : MonoBehaviour
             stamina = 0f;
         }
 
-        if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        if((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)))
         {
             UseStamina(0.1f);
         }
@@ -97,18 +106,25 @@ public class PlayerStats : MonoBehaviour
     ///hunger bar
     public void UpdateHunger()
     {
+        hungerHealthImpactTimer += Time.deltaTime;
+        
         if (hunger > 100f)
         {
             hunger = 100f;
         }
-        else if (hunger < 0f)
+        else if (hunger <= 0f)
         {
             hunger = 0f;
+            if ((hungerHealthImpactTimer >= hungerHealthImpactTime) && (health > 10f))
+            {
+                health -= 10f;
+                hungerHealthImpactTimer = 0f;
+            }
         }
-        
+
         hungerTimer += Time.deltaTime;
-        
-        if(hungerTimer >= hungerGainer)
+
+        if (hungerTimer >= hungerGainer)
         {
             hunger -= 5f;
             hungerTimer = 0f;
@@ -119,13 +135,20 @@ public class PlayerStats : MonoBehaviour
     //thirst bar
     public void UpdateThirst()
     {
+        thirstHealthImpactTimer += Time.deltaTime;
+
         if (thirst > 100f)
         {
             thirst = 100f;
         }
-        else if (thirst < 0f)
+        else if (thirst <= 0f)
         {
             thirst = 0f;
+            if ((thirstHealthImpactTimer >= thristHealthImpactTime) && (health > 10f))
+            {
+                health -= 10f;
+                thirstHealthImpactTimer = 0f;
+            }
         }
 
         thirstTimer += Time.deltaTime;

@@ -59,7 +59,7 @@ public class Item : MonoBehaviour
             weapon.SetActive(true);
             weapon.GetComponent<Item>().equipped = true;
         }
-        else if(type == "Healh" || type == "Food" || type == "Drink")
+        else if(type == "Health" || type == "Food" || type == "Drink")
         {
             gameObject.GetComponent<FoodDrinkHealthItem>().UseItem();
         }

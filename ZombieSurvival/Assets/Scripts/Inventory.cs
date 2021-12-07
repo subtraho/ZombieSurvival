@@ -64,7 +64,6 @@ public class Inventory : MonoBehaviour
         {
             if(slot[i].GetComponent<Slot>().empty)
             {
-                //add item to slot
                 itemObject.GetComponent<Item>().pickedUp = true;
 
                 slot[i].GetComponent<Slot>().item = itemObject; 
